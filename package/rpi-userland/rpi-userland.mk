@@ -15,6 +15,10 @@ RPI_USERLAND_CONF_OPTS = -DVMCS_INSTALL_PREFIX=/usr \
 
 RPI_USERLAND_PROVIDES = libegl libgles libopenmax libopenvg
 
+ifeq ($(BR2_aarch64),y)
+RPI_USERLAND_CONF_OPTS += -DARM64=on
+endif
+
 ifeq ($(BR2_PACKAGE_RPI_USERLAND_START_VCFILED),y)
 define RPI_USERLAND_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D package/rpi-userland/S94vcfiled \
