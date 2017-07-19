@@ -41,14 +41,12 @@ if [ ! -f "${h_file}" ]; then
     exit 0
 fi
 
-# Check one hash for a file
+# Compute hash for a file
 # $1: algo hash
-# $2: known hash
-# $3: file (full path)
-check_one_hash() {
+# $2: file (full path)
+compute_hash() {
     _h="${1}"
-    _known="${2}"
-    _file="${3}"
+    _file="${2}"
 
     # Note: md5 is supported, but undocumented on purpose.
     # Note: sha3 is not supported, since there is currently no implementation
@@ -67,8 +65,20 @@ check_one_hash() {
             ;;
     esac
 
+    ${_h}sum "${_file}" |cut -d ' ' -f 1
+}
+
+# Check one hash for a file
+# $1: algo hash
+# $2: known hash
+# $3: file (full path)
+check_one_hash() {
+    _h="${1}"
+    _known="${2}"
+    _file="${3}"
+
     # Do the hashes match?
-    _hash=$( ${_h}sum "${_file}" |cut -d ' ' -f 1 )
+    _hash=$( compute_hash "${_h}" "${_file}" )
     if [ "${_hash}" = "${_known}" ]; then
         printf "%s: OK (%s: %s)\n" "${base}" "${_h}" "${_hash}"
         return 0
@@ -106,6 +116,13 @@ if [ ${nb_checks} -eq 0 ]; then
         exit 0
         ;;
     esac
+
+    h="sha256"
+    hash=$( compute_hash "${h}" "${file}" )
     printf "ERROR: No hash found for %s\n" "${base}" >&2
+    printf "ERROR: Please find a hash in the upstream announcement or website and add it to ${h_file}\n" >&2
+    printf "ERROR: If upstream doesn't provide a hash and the source is trusted, consider adding these lines:\n" >&2
+    printf "# Locally calculated from download\n" >&2
+    printf "${h} ${hash} ${base}\n" >&2
     exit 3
 fi
