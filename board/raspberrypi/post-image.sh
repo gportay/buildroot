@@ -7,11 +7,14 @@ BOARD_NAME="$(basename ${BOARD_DIR})"
 GENIMAGE_CFG="${BOARD_DIR}/genimage-${BOARD_NAME}.cfg"
 GENIMAGE_TMP="${BUILD_DIR}/genimage.tmp"
 
+sed -e '/# Below, the post-build script customization/,${//p;d}' -i "${BINARIES_DIR}/rpi-firmware/config.txt"
+
 for arg in "$@"
 do
 	case "${arg}" in
+		# Leave as is for backward compatibility (same as --dtoverlay=pi3-miniuart-bt)
 		--add-pi3-miniuart-bt-overlay)
-		if ! grep -qE '^dtoverlay=' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
+		if ! grep -qE '^dtoverlay=pi3-miniuart-bt' "${BINARIES_DIR}/rpi-firmware/config.txt"; then
 			echo "Adding 'dtoverlay=pi3-miniuart-bt' to config.txt (fixes ttyAMA0 serial console)."
 			cat << __EOF__ >> "${BINARIES_DIR}/rpi-firmware/config.txt"
 
@@ -40,10 +43,12 @@ enable_uart=1
 __EOF__
 		fi
 		;;
-		--gpu_mem_256=*|--gpu_mem_512=*|--gpu_mem_1024=*)
-		# Set GPU memory
-		gpu_mem="${arg:2}"
-		sed -e "/^${gpu_mem%=*}=/s,=.*,=${gpu_mem##*=}," -i "${BINARIES_DIR}/rpi-firmware/config.txt"
+		--*=*)
+		# Set option=value
+		optval="${arg:2}"
+		cat << __EOF__ >> "${BINARIES_DIR}/rpi-firmware/config.txt"
+$optval
+__EOF__
 		;;
 	esac
 
