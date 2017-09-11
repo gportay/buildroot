@@ -31,7 +31,9 @@ define ROOTFS_EXT2_CMD
 	$(HOST_DIR)/sbin/mkfs.ext$(BR2_TARGET_ROOTFS_EXT2_GEN) $(EXT2_OPTS) $@ \
 		"$(EXT2_SIZE)" \
 	|| { ret=$$?; \
-	     echo "*** Maybe you need to increase the filesystem size (BR2_TARGET_ROOTFS_EXT2_SIZE)" 1>&2; \
+	     size=$$(du -sk $(TARGET_DIR) | awk '{ print $$1 }'); \
+	     size=$$((size*(100+$(BR2_TARGET_ROOTFS_EXT2_RESBLKS))/100)); \
+	     echo "*** Maybe you need to increase the filesystem size (BR2_TARGET_ROOTFS_EXT2_SIZE=\"$$((size/1024))M\")" 1>&2; \
 	     exit $$ret; \
 	}
 endef
