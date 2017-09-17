@@ -1,0 +1,12 @@
+config BR2_PACKAGE_QTWEBBROWSER
+	bool "qtwebbrowser"
+	depends on BR2_PACKAGE_QT5WEBENGINE
+	depends on BR2_PACKAGE_QT5VIRTUALKEYBOARD
+	help
+	  The Qt WebBrowser (codename Roadtrip) is a browser for
+	  embedded devices developed using the capabilities of Qt and
+	  Qt WebEngine. Using recent Chromium, it features up-to-date
+	  HTML technologies behind a minimal but slick touch-friendly
+	  user interface written in Qt Quick.
+
+	  http://doc.qt.io/QtWebBrowser/
