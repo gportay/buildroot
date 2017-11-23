@@ -1,6 +1,7 @@
 config BR2_PACKAGE_QT5WEBKIT_EXAMPLES
 	bool "qt5webkit-examples"
 	depends on BR2_PACKAGE_QT5WEBKIT
+	select BR2_PACKAGE_QT5BASE_SQLITE_SYSTEM # flickrview, youtubeview
 	help
 	  Qt is a cross-platform application and UI framework for
 	  developers using C++.
