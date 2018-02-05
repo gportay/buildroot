@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-# no 5.9.2 package available, fall back to 5.9.1 version
+# no 5.10 package available, fall back to 5.9.1 version
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
 QT5WEBKIT_EXAMPLES_VERSION = 5.9.1
 QT5WEBKIT_EXAMPLES_SITE = http://download.qt.io/official_releases/qt/5.9/5.9.1/submodules
@@ -13,7 +13,7 @@ QT5WEBKIT_EXAMPLES_VERSION = $(QT5_VERSION)
 QT5WEBKIT_EXAMPLES_SITE = http://download.qt.io/community_releases/5.6/$(QT5_VERSION)
 endif
 
-QT5WEBKIT_EXAMPLES_SOURCE = qtwebkit-examples-opensource-src-$(QT5WEBKIT_VERSION).tar.xz
+QT5WEBKIT_EXAMPLES_SOURCE = $(call qt5source,qtwebkit-examples,$(QT5WEBKIT_VERSION))
 QT5WEBKIT_EXAMPLES_DEPENDENCIES = qt5base qt5webkit
 
 QT5WEBKIT_EXAMPLES_LICENSE_FILES = LICENSE.LGPLv21 LICENSE.LGPLv3 LICENSE.GPLv2 LICENSE.GPLv3

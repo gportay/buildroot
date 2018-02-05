@@ -1,8 +1,8 @@
 # Hash from: https://download.qt.io/official_releases/qt/5.6/5.6.3/submodules/qtscript-opensource-src-5.6.3.tar.xz.mirrorlist
 sha256 f08720dd0e3a70377c1cb7fa3b129e24f4cdedade279e51b67c9271ab470b389 qtscript-opensource-src-5.6.3.tar.xz
 
-# Hash from: https://download.qt.io/official_releases/qt/5.9/5.9.3/submodules/qtscript-opensource-src-5.9.3.tar.xz.mirrorlist
-sha256 b80bfaaf58f154b68101e438a1881f669cb9974026926be7755adb00af355566 qtscript-opensource-src-5.9.3.tar.xz
+# Hash from: https://download.qt.io/official_releases/qt/5.10/5.10.0/submodules/qtscript-everywhere-src-5.10.0.tar.xz.mirrorlist
+sha256 6cf2f2f09ccafa9c9cd5d16641ae2b75b7f98947de6ec0ec1717489f3a09cafc  qtscript-everywhere-src-5.10.0.tar.xz
 
 # Hashes for license files:
 sha256 245248009fd0af1725d183248380e476c1283383909358a13686606352bf2a17 LICENSE.GPLv3
