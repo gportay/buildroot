@@ -4,15 +4,34 @@ config BR2_PACKAGE_QT5WEBKIT
 	depends on BR2_PACKAGE_QT5_JSCORE_AVAILABLE
 	depends on BR2_HOST_GCC_AT_LEAST_4_8 # icu
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # icu
+	depends on BR2_TOOLCHAIN_HAS_THREADS # gstreamer1
+	depends on BR2_USE_WCHAR # gstreamer1
+	depends on BR2_USE_MMU # gstreamer1
 	depends on !BR2_BINFMT_FLAT # icu
 	# assumes a FPU is available on MIPS
 	depends on !BR2_MIPS_SOFT_FLOAT
+	select BR2_PACKAGE_GSTREAMER1
+	select BR2_PACKAGE_GST1_PLUGINS_GOOD
+	select BR2_PACKAGE_GST1_PLUGINS_GOOD_PLUGIN_SPECTRUM
+	select BR2_PACKAGE_JPEG
+	select BR2_PACKAGE_LIBPNG
+	select BR2_PACKAGE_LIBXSLT
 	select BR2_PACKAGE_QT5BASE
 	select BR2_PACKAGE_QT5BASE_ICU
 	select BR2_PACKAGE_QT5BASE_GUI
+	select BR2_PACKAGE_QT5BASE_WIDGETS
+	select BR2_PACKAGE_QT5DECLARATIVE
+	select BR2_PACKAGE_QT5LOCATION
+	select BR2_PACKAGE_QT5SENSORS
+	select BR2_PACKAGE_QT5WEBCHANNEL
 	select BR2_PACKAGE_SQLITE
 	select BR2_PACKAGE_XLIB_LIBXEXT if BR2_PACKAGE_QT5BASE_XCB
 	select BR2_PACKAGE_XLIB_LIBXRENDER if BR2_PACKAGE_QT5BASE_XCB
+	depends on BR2_HOST_GCC_AT_LEAST_4_8 # icu
+	depends on BR2_INSTALL_LIBSTDCPP # icu
+	depends on BR2_USE_WCHAR # icu
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # icu
+	depends on BR2_TOOLCHAIN_HAS_THREADS # icu
 	help
 	  Qt is a cross-platform application and UI framework for
 	  developers using C++.

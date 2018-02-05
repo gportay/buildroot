@@ -4,16 +4,16 @@
 #
 ################################################################################
 
-# no 5.9.2 package available, fall back to 5.9.1 version
+# Qt WebKit is maintained on GitHub under version 5.212
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
-QT5WEBKIT_VERSION = 5.9.1
-QT5WEBKIT_SITE = https://download.qt.io/official_releases/qt/5.9/5.9.1/submodules
+QT5WEBKIT_VERSION = 72cfbd7664f21fcc0e62b869a6b01bf73eb5e7da
+QT5WEBKIT_SITE = $(call github,qt,qtwebkit,$(QT5WEBKIT_VERSION))
 else
 QT5WEBKIT_VERSION = $(QT5_VERSION)
 QT5WEBKIT_SITE = https://download.qt.io/community_releases/5.6/$(QT5_VERSION)
-endif
-
 QT5WEBKIT_SOURCE = qtwebkit-opensource-src-$(QT5WEBKIT_VERSION).tar.xz
+endif
+ 
 QT5WEBKIT_DEPENDENCIES = \
 	host-bison host-flex host-gperf host-python host-ruby \
 	qt5base sqlite
@@ -34,6 +34,21 @@ ifeq ($(BR2_PACKAGE_QT5DECLARATIVE),y)
 QT5WEBKIT_DEPENDENCIES += qt5declarative
 endif
 
+ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
+QT5WEBKIT_DEPENDENCIES += gstreamer1 gst1-plugins-good jpeg libpng libxslt \
+	qt5declarative qt5location qt5sensors qt5webchannel
+
+QT5WEBKIT_CONF_OPTS += -DPORT=Qt -DUSE_SYSTEM_MALLOC=ON -DUSE_LIBHYPHEN=OFF
+
+# The mesa's EGL/eglplatform.h header includes X11 headers unless the flag
+# MESA_EGL_NO_X11_HEADERS is defined. Tell to not include X11 headers if
+# the libxcb is not selected.
+ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_EGL)x$(BR2_PACKAGE_LIBXCB),yx)
+QT5WEBKIT_CONF_OPTS += -DCMAKE_CXX_FLAGS=-DMESA_EGL_NO_X11_HEADERS
+endif
+
+$(eval $(cmake-package))
+else
 # QtWebkit's build system uses python, but only supports python2. We work
 # around this by forcing python2 early in the PATH, via a python->python2
 # symlink.
@@ -70,3 +85,4 @@ define QT5WEBKIT_INSTALL_TARGET_CMDS
 endef
 
 $(eval $(generic-package))
+endif
