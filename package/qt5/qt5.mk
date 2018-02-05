@@ -5,13 +5,17 @@
 ################################################################################
 
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
-QT5_VERSION_MAJOR = 5.9
-QT5_VERSION = $(QT5_VERSION_MAJOR).3
+QT5_VERSION_MAJOR = 5.10
+QT5_VERSION = $(QT5_VERSION_MAJOR).0
+QT5_SRC = everywhere-src
 else
 QT5_VERSION_MAJOR = 5.6
 QT5_VERSION = $(QT5_VERSION_MAJOR).3
+QT5_SRC = opensource-src
 endif
 QT5_SITE = http://download.qt.io/official_releases/qt/$(QT5_VERSION_MAJOR)/$(QT5_VERSION)/submodules
+# qt5(module,version): returns site of Qt5 tarball
+qt5source = $(1)-$(QT5_SRC)-$(2).tar.xz
 
 include $(sort $(wildcard package/qt5/*/*.mk))
 
