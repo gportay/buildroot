@@ -35,7 +35,7 @@ QT5WEBKIT_DEPENDENCIES += qt5declarative
 endif
 
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
-QT5WEBKIT_DEPENDENCIES += gstreamer1 gst1-plugins-base libxslt
+QT5WEBKIT_DEPENDENCIES += gstreamer1 gst1-plugins-base gst1-plugins-bad libxslt
 
 QT5WEBKIT_CONF_OPTS += -DPORT=Qt
 
