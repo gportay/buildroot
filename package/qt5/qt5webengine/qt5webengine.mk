@@ -22,6 +22,10 @@ QT5WEBENGINE_DEPENDENCIES += xlib_libXScrnSaver xlib_libXcomposite \
 	xlib_libXcursor xlib_libXi xlib_libXrandr xlib_libXtst
 endif
 
+ifneq ($(BR2_PACKAGE_QT5_VERSION_5_6),y)
+QT5WEBENGINE_DEPENDENCIES += host-libpng host-libnss libnss
+endif
+
 QT5WEBENGINE_QMAKEFLAGS += WEBENGINE_CONFIG+=use_system_ffmpeg
 
 ifeq ($(BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS),y)
