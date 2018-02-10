@@ -35,6 +35,8 @@ QT5WEBKIT_DEPENDENCIES += qt5declarative
 endif
 
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
+QT5WEBKIT_CONF_OPTS += -DPORT=Qt
+
 $(eval $(cmake-package))
 else
 # QtWebkit's build system uses python, but only supports python2. We work
