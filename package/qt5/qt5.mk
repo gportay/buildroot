@@ -13,7 +13,7 @@ QT5_VERSION_MAJOR = 5.6
 QT5_VERSION = $(QT5_VERSION_MAJOR).3
 QT5_SRC = opensource-src
 endif
-QT5_SITE = http://download.qt.io/official_releases/qt/$(QT5_VERSION_MAJOR)/$(QT5_VERSION)/submodules
+QT5_SITE = https://download.qt.io/official_releases/qt/$(QT5_VERSION_MAJOR)/$(QT5_VERSION)/submodules
 # qt5(module,version): returns site of Qt5 tarball
 qt5source = $(1)-$(QT5_SRC)-$(2).tar.xz
 
