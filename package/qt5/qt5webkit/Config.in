@@ -11,6 +11,7 @@ config BR2_PACKAGE_QT5WEBKIT
 	# assumes a FPU is available on MIPS
 	depends on !BR2_MIPS_SOFT_FLOAT
 	select BR2_PACKAGE_GSTREAMER1
+	select BR2_PACKAGE_GST1_PLUGINS_BAD
 	select BR2_PACKAGE_GST1_PLUGINS_BASE
 	select BR2_PACKAGE_LIBGLIB2 # gstreamer1
 	select BR2_PACKAGE_LIBXML2 # libxslt
@@ -51,6 +52,7 @@ config BR2_PACKAGE_QT5WEBKIT_GSTREAMER1
 	default y
 	depends on BR2_PACKAGE_QT5_VERSION_LATEST
 	select BR2_PACKAGE_GSTREAMER1
+	select BR2_PACKAGE_GST1_PLUGINS_BAD
 	select BR2_PACKAGE_GST1_PLUGINS_BASE
 	help
 	  Enable gstreamer1 support
