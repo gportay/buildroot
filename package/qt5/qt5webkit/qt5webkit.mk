@@ -37,6 +37,10 @@ endif
 ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST),y)
 QT5WEBKIT_CONF_OPTS += -DPORT=Qt
 
+ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_EGL),y)
+QT5WEBKIT_CONF_OPTS += -DCMAKE_CXX_FLAGS=-DMESA_EGL_NO_X11_HEADERS
+endif
+
 $(eval $(cmake-package))
 else
 # QtWebkit's build system uses python, but only supports python2. We work
