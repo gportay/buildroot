@@ -49,4 +49,11 @@ LIBNSPR_INSTALL_TARGET_OPTS = DESTDIR=$(TARGET_DIR) LIBRARY= install
 LIBNSPR_INSTALL_STAGING_OPTS = DESTDIR=$(STAGING_DIR) LIBRARY= install
 endif
 
+ifeq ($(HOSTARCH),x86_64)
+HOST_LIBNSPR_CONF_OPTS += --enable-64bit
+else
+HOST_LIBNSPR_CONF_OPTS += --disable-64bit
+endif
+
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
