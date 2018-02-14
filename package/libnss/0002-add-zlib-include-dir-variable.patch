@@ -1,0 +1,30 @@
+Add ZLIB_INCLUDE_DIR variable
+
+Signed-off-by: Gaël PORTAY <gael.portay@savoirfairelinux.com>
+
+--- libnss-3.33.orig/nss/lib/ssl/manifest.mn	2017-09-20 02:47:27.000000000 -0400
++++ libnss-3.33/nss/lib/ssl/manifest.mn	2018-02-16 16:45:41.512709898 -0500
+@@ -6,6 +6,10 @@
+ 
+ # DEFINES = -DTRACE
+ 
++ifdef ZLIB_INCLUDE_DIR
++INCLUDES += -I$(ZLIB_INCLUDE_DIR)
++endif
++
+ EXPORTS = \
+         ssl.h \
+         sslt.h \
+--- host-libnss-3.33.orig/nss/cmd/signtool/manifest.mn.orig	2018-02-16 17:08:58.474777871 -0500
++++ host-libnss-3.33/nss/cmd/signtool/manifest.mn	2018-02-16 17:09:22.603710963 -0500
+@@ -6,6 +6,10 @@
+ 
+ MODULE = nss
+ 
++ifdef ZLIB_INCLUDE_DIR
++INCLUDES += -I$(ZLIB_INCLUDE_DIR)
++endif
++
+ EXPORTS = 
+ 
+ CSRCS = signtool.c		\
