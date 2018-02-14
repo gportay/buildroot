@@ -1,0 +1,10 @@
+config BR2_PACKAGE_HOST_LIBNSPR
+	bool "host libnspr"
+	help
+	  NSPR is the Netscape Portable Runtime library which provides
+	  a platform-neutral API for system level and libc like
+	  functions. The library is used by the Mozilla project as well
+	  as others.
+
+	  http://www.mozilla.org/projects/nspr/
+
