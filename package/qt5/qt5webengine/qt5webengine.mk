@@ -41,7 +41,7 @@ endif
 # QtWebengine's build system uses python, but only supports python2. We work
 # around this by forcing python2 early in the PATH, via a python->python2
 # symlink.
-QT5WEBENGINE_ENV = PATH=$(@D)/host-bin:$(BR_PATH)
+QT5WEBENGINE_ENV = PATH=$(@D)/host-bin:$(BR_PATH) GN_PKG_CONFIG_HOST=pkg-config-host
 define QT5WEBENGINE_PYTHON2_SYMLINK
 	mkdir -p $(@D)/host-bin
 	ln -sf $(HOST_DIR)/bin/python2 $(@D)/host-bin/python
