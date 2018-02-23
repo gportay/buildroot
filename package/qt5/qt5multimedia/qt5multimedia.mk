@@ -47,7 +47,9 @@ define QT5MULTIMEDIA_INSTALL_STAGING_CMDS
 	$(QT5_LA_PRL_FILES_FIXUP)
 endef
 
-ifeq ($(BR2_STATIC_LIBS),)
+# since Qt5.10.1 libqgsttools was renamed to libQtMultimediaGstTools
+# and is installed by the default target install step below
+ifeq ($(BR2_PACKAGE_QT5_VERSION_LATEST)$(BR2_STATIC_LIBS),)
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BASE),y)
 define QT5MULTIMEDIA_INSTALL_TARGET_QGSTTOOLS_LIB
 	cp -dpf $(STAGING_DIR)/usr/lib/libqgsttools*.so.* $(TARGET_DIR)/usr/lib
