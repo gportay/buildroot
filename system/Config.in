@@ -1,5 +1,49 @@
 menu "System configuration"
 
+if BR2_PACKAGE_SKELETON_DEBIAN
+
+choice
+	prompt "The Debian suite"
+	default BR2_PACKAGE_SKELETON_DEBIAN_SUITE_STABLE
+	help
+	  The Debian releases in active maintenance: "stable", "testing"
+	  and "unstable".
+
+	  See https://www.debian.org/releases/.
+
+config BR2_PACKAGE_SKELETON_DEBIAN_SUITE_STABLE
+	bool "stable"
+	help
+	  The "stable" distribution contains the latest officially
+	  released distribution of Debian.
+
+config BR2_PACKAGE_SKELETON_DEBIAN_SUITE_TESTING
+	bool "testing"
+	help
+	  The "testing" distribution contains packages that haven't been
+	  accepted into a "stable" release yet, but they are in the
+	  queue for that. The main advantage of using this distribution
+	  is that it has more recent versions of software.
+
+config BR2_PACKAGE_SKELETON_DEBIAN_SUITE_UNSTABLE
+	bool "unstable"
+	help
+	  The "unstable" distribution is where active development of
+	  Debian occurs. Generally, this distribution is run by
+	  developers and those who like to live on the edge.
+
+endchoice
+
+config BR2_PACKAGE_SKELETON_DEBIAN_MIRROR
+	string "The mirror URL"
+	default "http://deb.debian.org/debian/"
+
+# dummy config so merged /usr workarounds can also be activated for
+# custom rootfs skeleton
+config BR2_ROOTFS_MERGED_USR
+
+endif
+
 # Note: usually, it is not possible to select a provider of a virtual
 # package. But here we have an exception: there are only four providers
 # and they only get selected by separate entries in this choice and
