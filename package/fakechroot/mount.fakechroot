@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# mount
+#
+# Replacement for mount command that calls bindfs
+#
+# (c) 2019 Gaël PORTAY <gael.portay@gmail.com>, LGPL
+
+help () {
+    cat << END
+Usage:
+ mount [options] <source> <directory>
+
+Mount --bind in user-space.
+
+Replacement for mount command that calls bindfs.
+
+Options:
+ -h, --help              display this help
+END
+    exit 0
+}
+
+opts=()
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -h|--help)
+            help
+            exit
+            ;;
+        -a|--all|-B|--bind|-c|--no-canonicalize|-F|--fork|-f|--fake|-i|--internal-only|-l|--show-labels|-M|--move|-n|--no-mtab|--options-source-force|-R|--rbind|-r|--read-only|-s|-v|--verbose|-r|--rw|--read-write|-V|--version)
+            ;;
+        -N|--namespace|-O|--test-opts|-o|--options|--options-mode|--options-source|--source|--target|-T|--fstab|-t|--types|-U|--uuid)
+            shift
+            ;;
+        *)
+            if [ "${#opts[@]}" -lt 2 ]; then
+                opts+=("$1")
+            else
+                echo "Too many arguments!" >&2
+                exit 1
+            fi
+	    ;;
+        --)
+	    break
+	    ;;
+    esac
+    shift
+done
+
+if [[ ! "${opts[2]##*/}" =~ ^(proc|sys|dev)$ ]]; then
+    exit
+fi
+
+exec bindfs -o nonempty "/${opts[2]#*/}" "${opts[2]}"
