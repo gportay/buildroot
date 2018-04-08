@@ -1,0 +1,6 @@
+# Locally calculated from download
+sha256 7f9d60d0d48611969e195fadf84d05f6c74f71bbf8f41950ad8f5bf061773e18 fakechroot-2.20.1.tar.gz
+
+# License files, locally calculated
+sha256 a9bdde5616ecdd1e980b44f360600ee8783b1f99b8cc83a2beb163a0a390e861 LICENSE
+sha256 ed902b8ceafac035956ea8f4b0a68e3f3a0c9aa8d6bb054058cc8fc3167ebcc3 COPYING

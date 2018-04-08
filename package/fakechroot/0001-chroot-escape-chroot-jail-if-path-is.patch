@@ -1,0 +1,55 @@
+From 4fbb27fe6f0d9293a27f0c581aabb370dd9d81ed Mon Sep 17 00:00:00 2001
+From: =?utf-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@collabora.com>
+Date: Wed, 8 Jul 2020 15:25:00 -0400
+Subject: [PATCH] chroot: escape chroot jail if path is "."
+
+The rpm library exits the chroot environment with chroot("."), see[1].
+
+According to the man page chroot(2):
+
+	This call does not change the current working directory, so that
+	after the call '.' can be outside the tree rooted at '/'. In
+	particular, the superuser can escape from a "chroot jail" by
+	doing:
+
+		mkdir foo; chroot foo; cd ..
+
+This implements escaping from the chroot jail if chrooting to ".".
+
+TODO: Implement the feature correctly (i.e. path is outside the chroot)
+and check for superuser privileges.
+
+Note: The behaviour `mkdir foo; chroot foo; cd ..` cannot be reproduced.
+However, dnf is now working correctly with this change and the variable
+`FAKECHROOT_EXCLUDE_PATH=/proc`.
+
+[1]: https://github.com/rpm-software-management/rpm/blob/8ed452dd8697917637d9e6fcc4b8c5d4bb50c8d0/lib/rpmchroot.c#L155
+---
+ src/chroot.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/src/chroot.c b/src/chroot.c
+index 7626253..ab80a01 100644
+--- a/src/chroot.c
++++ b/src/chroot.c
+@@ -75,6 +75,17 @@ wrapper(chroot, int, (const char * path))
+         return -1;
+     }
+ 
++    if (strcmp(path, ".") == 0) {
++        unsetenv("FAKECHROOT_BASE");
++        unsetenv("LD_LIBRARY_PATH");
++        ld_library_path = getenv("FAKECHROOT_LDLIBPATH");
++        if (ld_library_path) {
++            setenv("LD_LIBRARY_PATH", ld_library_path, 1);
++        }
++        chdir(fakechroot_base);
++        return 0;
++    }
++
+     if (fakechroot_base != NULL && strstr(cwd, fakechroot_base) == cwd) {
+         expand_chroot_path(path);
+         strlcpy(tmp, path, FAKECHROOT_PATH_MAX);
+-- 
+2.27.0
+
