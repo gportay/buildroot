@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# umount
+#
+# Replacement for umount command that calls fusermount
+#
+# (c) 2019 Gaël PORTAY <gael.portay@gmail.com>, LGPL
+
+help () {
+    cat << END
+Usage:
+ umount [options] <source> | <directory>...
+
+Unmount FUSE filesystems.
+
+Replacement for umount command that calls fusermount.
+
+Options:
+ -h, --help              display this help
+END
+    exit 0
+}
+
+opts=()
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -h|--help)
+            help
+            ;;
+        -O|--test-opts|-t|--types|-N|--namespace)
+            shift
+            ;;
+        *)
+            opts+=("$1")
+	    ;;
+        --)
+	    break
+	    ;;
+    esac
+    shift
+done
+
+for mp in "${opts[@]}"; do
+    if [[ ! "${mp##*/}" =~ ^(proc|sys|dev)$ ]]; then
+        continue
+    fi
+
+    fusermount -u "$mp"
+done
