@@ -93,8 +93,10 @@ endif
 
 if !BR2_PACKAGE_BUSYBOX # kconfig doesn't support else
 
+if BR2_USERLAND_BUILDROOT
 comment "You may need to enable other packages to get a working system"
 comment "You better know what you're doing!"
+endif
 
 # This option is not an option of Busybox, it can be selected even if
 # Busybox is not enabled. This dummy option ensures that packages that

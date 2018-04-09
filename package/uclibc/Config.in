@@ -4,7 +4,7 @@ comment "uClibc Options"
 
 config BR2_PACKAGE_UCLIBC
 	bool
-	default y
+	default y if BR2_USERLAND_BUILDROOT
 	select BR2_PACKAGE_LINUX_HEADERS
 
 config BR2_UCLIBC_CONFIG

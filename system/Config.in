@@ -1,5 +1,22 @@
 menu "System configuration"
 
+choice
+	prompt "Userland"
+	default BR2_USERLAND_BUILDROOT
+
+config BR2_USERLAND_BUILDROOT
+	bool "Buildroot"
+	help
+	  Use customable Buildroot userland.
+
+config BR2_USERLAND_DEBIAN
+	bool "Debian"
+	select BR2_PACKAGE_SKELETON_DEBIAN
+	help
+	  Use Debian userland.
+
+endchoice
+
 if BR2_PACKAGE_SKELETON_DEBIAN
 
 choice
@@ -57,6 +74,7 @@ config BR2_ROOTFS_SKELETON_DEFAULT
 	select BR2_PACKAGE_SKELETON_INIT_SYSV if BR2_INIT_BUSYBOX
 	select BR2_PACKAGE_SKELETON_INIT_SYSTEMD if BR2_INIT_SYSTEMD
 	select BR2_PACKAGE_SKELETON_INIT_NONE if BR2_INIT_NONE
+	select BR2_PACKAGE_SKELETON_DEBIAN if BR2_USERLAND_DEBIAN
 	help
 	  Use default target skeleton
 
@@ -102,6 +120,8 @@ config BR2_TARGET_GENERIC_ISSUE
 	  one from a custom skeleton.
 
 endif
+
+if BR2_USERLAND_BUILDROOT
 
 choice
 	bool "Passwords encoding"
@@ -192,6 +212,11 @@ config BR2_INIT_NONE
 	  Buildroot will not install any init system. You will
 	  have to provide your own, either with a new package
 	  or with a rootfs-overlay.
+
+config BR2_DEBIAN
+	bool "Debian"
+	help
+	  Buildroot will build a Debian userland.
 
 endchoice
 
@@ -547,6 +572,8 @@ config BR2_ROOTFS_USERS_TABLES
 	  users on the system, with home directory, password, etc.
 
 	  See manual for details on the usage and syntax of these files.
+
+endif
 
 config BR2_ROOTFS_OVERLAY
 	string "Root filesystem overlay directories"

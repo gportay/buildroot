@@ -748,6 +748,7 @@ ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 		xargs -r $(STRIPCMD) $(STRIP_STRIP_DEBUG)
 endif
 
+ifeq ($(BR2_USERLAND_BUILDROOT),y)
 # Valgrind needs ld.so with enough information, so only strip
 # debugging symbols.
 	find $(TARGET_DIR)/lib/ -type f -name 'ld-*.so*' | \
@@ -765,6 +766,7 @@ endif
 		echo "PRETTY_NAME=\"Buildroot $(BR2_VERSION)\"" \
 	) >  $(TARGET_DIR)/usr/lib/os-release
 	ln -sf ../usr/lib/os-release $(TARGET_DIR)/etc
+endif
 
 	@$(call MESSAGE,"Sanitizing RPATH in target tree")
 	$(TOPDIR)/support/scripts/fix-rpath target

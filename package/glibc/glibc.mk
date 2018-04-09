@@ -37,6 +37,10 @@ GLIBC_INSTALL_STAGING = YES
 
 GLIBC_INSTALL_STAGING_OPTS = install_root=$(STAGING_DIR) install
 
+ifndef ($(BR2_USERLAND_BUILDROOT),y)
+GLIBC_INSTALL_TARGET = NO
+endif
+
 # Thumb build is broken, build in ARM mode
 ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
 GLIBC_EXTRA_CFLAGS += -marm

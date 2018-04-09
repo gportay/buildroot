@@ -11,6 +11,10 @@ UCLIBC_LICENSE = LGPL-2.1+
 UCLIBC_LICENSE_FILES = COPYING.LIB
 UCLIBC_INSTALL_STAGING = YES
 
+ifndef ($(BR2_USERLAND_BUILDROOT),y)
+UCLIBC_INSTALL_TARGET = NO
+endif
+
 define UCLIBC_HELP_CMDS
 	@echo '  uclibc-menuconfig      - Run uClibc menuconfig'
 endef

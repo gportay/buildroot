@@ -1,6 +1,6 @@
 config BR2_PACKAGE_MUSL
 	bool
-	default y
+	default y if BR2_USERLAND_BUILDROOT
 	depends on BR2_TOOLCHAIN_USES_MUSL
 	select BR2_PACKAGE_LINUX_HEADERS
 	# SSP broken on i386/ppc: http://www.openwall.com/lists/musl/2016/12/04/2

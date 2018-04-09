@@ -25,6 +25,10 @@ MUSL_ADD_TOOLCHAIN_DEPENDENCY = NO
 
 MUSL_INSTALL_STAGING = YES
 
+ifndef ($(BR2_USERLAND_BUILDROOT),y)
+MUSL_INSTALL_TARGET = NO
+endif
+
 # Thumb build is broken, build in ARM mode, since all architectures
 # that support Thumb1 also support ARM.
 ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
