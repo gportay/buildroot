@@ -69,11 +69,13 @@ define SYSTEM_LIB_SYMLINK
 endef
 else ifeq ($(BR2_ARCH_IS_64),y)
 define SYSTEM_LIB_SYMLINK
+	mkdir -p $(1)/usr
 	ln -snf lib $(1)/lib64
 	ln -snf lib $(1)/usr/lib64
 endef
 else
 define SYSTEM_LIB_SYMLINK
+	mkdir -p $(1)/usr
 	ln -snf lib $(1)/lib32
 	ln -snf lib $(1)/usr/lib32
 endef
