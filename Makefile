@@ -757,7 +757,7 @@ ifeq ($(BR2_USERLAND_BUILDROOT),y)
 		{ echo "ERROR: we shouldn't have a /etc/ld.so.conf file"; exit 1; } || true
 	test -d $(TARGET_DIR)/etc/ld.so.conf.d && \
 		{ echo "ERROR: we shouldn't have a /etc/ld.so.conf.d directory"; exit 1; } || true
-	mkdir -p $(TARGET_DIR)/etc
+	mkdir -p $(TARGET_DIR)/etc $(TARGET_DIR)/usr/lib
 	( \
 		echo "NAME=Buildroot"; \
 		echo "VERSION=$(BR2_VERSION_FULL)"; \
