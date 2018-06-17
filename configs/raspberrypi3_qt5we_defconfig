@@ -46,4 +46,4 @@ BR2_TARGET_ROOTFS_EXT2_SIZE="360M"
 BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_EUDEV=y
 BR2_ROOTFS_POST_BUILD_SCRIPT="board/raspberrypi3/post-build.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/raspberrypi3/post-image.sh"
-BR2_ROOTFS_POST_SCRIPT_ARGS="--dtoverlay=pi3-miniuart-bt --gpu_mem_1024=200"
+BR2_ROOTFS_POST_SCRIPT_ARGS="--dtoverlay=pi3-miniuart-bt --dtparam=audio=on --gpu_mem_1024=200"
