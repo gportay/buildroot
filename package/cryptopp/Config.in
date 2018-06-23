@@ -1,0 +1,7 @@
+config BR2_PACKAGE_CRYPTOPP
+	bool "cryptopp"
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  Crypto++ Library is a free C++ class library of cryptographic schemes.
+
+	  https://www.cryptopp.com/
