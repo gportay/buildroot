@@ -287,6 +287,14 @@ QT5BASE_EGLFS_DEVICE = EGLFS_DEVICE_INTEGRATION = eglfs_mali
 endif
 endif
 
+ifeq ($(BR2_PACKAGE_QT5BASE_EGLFS),y)
+QT5BASE_QMAKE_LIBDIR_EGL = QMAKE_LIBDIR_EGL = $$$$[QT_SYSROOT]/usr/lib
+endif
+
+ifeq ($(BR2_PACKAGE_QT5BASE_OPENGL_ES2),y)
+QT5BASE_QMAKE_LIBDIR_OPENGL_ES2 = QMAKE_LIBDIR_OPENGL_ES2 = $$$$[QT_SYSROOT]/usr/lib
+endif
+
 ifneq ($(QT5BASE_CONFIG_FILE),)
 define QT5BASE_CONFIGURE_CONFIG_FILE
 	cp $(QT5BASE_CONFIG_FILE) $(@D)/src/corelib/global/qconfig-buildroot.h
@@ -312,7 +320,9 @@ QT5BASE_CONFIGURE_OPTS += $(call qstrip,$(BR2_PACKAGE_QT5BASE_CUSTOM_CONF_OPTS))
 
 define QT5BASE_CONFIGURE_CMDS
 	mkdir -p $(@D)/mkspecs/devices/linux-buildroot-g++/
-	sed 's/@EGLFS_DEVICE@/$(QT5BASE_EGLFS_DEVICE)/g' \
+	sed -e 's/@EGLFS_DEVICE@/$(QT5BASE_EGLFS_DEVICE)/g' \
+	    -e 's,@QMAKE_LIBDIR_EGL@,$(QT5BASE_QMAKE_LIBDIR_EGL),g' \
+	    -e 's,@QMAKE_LIBDIR_OPENGL_ES2@,$(QT5BASE_QMAKE_LIBDIR_OPENGL_ES2),g' \
 		$(QT5BASE_PKGDIR)/qmake.conf.in > \
 		$(@D)/mkspecs/devices/linux-buildroot-g++/qmake.conf
 	$(INSTALL) -m 0644 -D $(QT5BASE_PKGDIR)/qplatformdefs.h \
