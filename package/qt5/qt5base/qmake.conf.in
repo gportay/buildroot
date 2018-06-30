@@ -25,6 +25,8 @@ QMAKE_CFLAGS_ISYSTEM   =
 include(arch.conf)
 
 @EGLFS_DEVICE@
+@QMAKE_LIBDIR_EGL@
+@QMAKE_LIBDIR_OPENGL_ES2@
 
 include(../common/linux_device_post.conf)
 load(qt_config)
