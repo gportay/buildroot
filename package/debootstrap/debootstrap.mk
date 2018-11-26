@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-DEBOOTSTRAP_VERSION = 9c57a72af07f32eec59e56b86f6375bca9228ddc
-DEBOOTSTRAP_SITE = git://anonscm.debian.org/d-i/debootstrap.git
+DEBOOTSTRAP_VERSION = 1.0.110
+DEBOOTSTRAP_SOURCE = debootstrap-$(DEBOOTSTRAP_VERSION).tar.gz
+DEBOOTSTRAP_SITE = https://salsa.debian.org/installer-team/debootstrap/-/archive/$(DEBOOTSTRAP_VERSION)
 DEBOOTSTRAP_LICENSE = MIT
 DEBOOTSTRAP_LICENSE_FILES = debian/copyright
 
