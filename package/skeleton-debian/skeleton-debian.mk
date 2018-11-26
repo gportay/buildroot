@@ -35,38 +35,38 @@ endif
 
 ifeq ($(BR2_i386),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch i386
-else
+endif
+
 ifeq ($(BR2_x86_64),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch amd64
-else
+endif
+
 ifeq ($(BR2_arm),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch armel
-else
+endif
+
 ifeq ($(BR2_aarch64),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch arm64
-else
+endif
+
 ifeq ($(BR2_mips),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch mips
-else
+endif
+
 ifeq ($(BR2_mipsel),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch mipsel
-else
+endif
+
 ifeq ($(BR2_mips64el),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch mips64el
-else
+endif
+
 ifeq ($(BR2_powerpc),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch powerpc
-else
+endif
+
 ifeq ($(BR2_powerpc64le),y)
 SKELETON_DEBIAN_DEBOOTSTRAP_OPTS += --arch ppc64el
-endif
-endif
-endif
-endif
-endif
-endif
-endif
-endif
 endif
 
 define SKELETON_DEBIAN_BUILD_CMDS
