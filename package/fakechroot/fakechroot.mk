@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FAKECHROOT_VERSION = 2.19
+FAKECHROOT_VERSION = 2.20.1
 FAKECHROOT_SITE = $(call github,dex4er,fakechroot,$(FAKECHROOT_VERSION))
 FAKECHROOT_LICENSE = LGPL-2.1+
 FAKECHROOT_LICENSE_FILES = LICENSE COPYING
