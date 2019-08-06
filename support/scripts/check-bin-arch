@@ -75,7 +75,7 @@ while read f; do
 		       sed -r -e '/^  Machine: +(.+)/!d; s//\1/;' | head -1)
 
 	# If no architecture found, assume it was not an ELF file
-	if test "${arch}" = "" ; then
+	if test "${arch}" = "" -o "${arch}" = "None"; then
 		continue
 	fi
 
