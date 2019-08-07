@@ -20,7 +20,7 @@ define SKELETON_ARCHLINUX_BUILD_CMDS
 	PATH=$(BR_PATH) \
 	$(HOST_DIR)/bin/fakeroot -- \
 	$(HOST_DIR)/bin/fakechroot -- \
-	pacstrap $(@D)/rootfs base
+	pacstrap -G $(@D)/rootfs base
 endef
 
 define SKELETON_ARCHLINUX_INSTALL_TARGET_CMDS
