@@ -1,0 +1,5 @@
+# Hash from: https://launchpad.net/debian/+source/debootstrap/1.0.115
+sha256 e4811165e02b027feb6a299aa354bcecc351ba273db9f56b072e246ff2b1d4e8  debootstrap_1.0.115.tar.gz
+
+# Locally calculated
+sha256 fef429200a517825bd5af611f1b13dfc9ff61f8886bb24166335259e03ece971  debian/copyright 
