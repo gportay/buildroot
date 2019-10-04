@@ -16,11 +16,13 @@ SKELETON_ARCHLINUX_DEPENDENCIES = host-arch-install-scripts host-fakeroot host-f
 SKELETON_ARCHLINUX_PROVIDES = skeleton
 
 define SKELETON_ARCHLINUX_BUILD_CMDS
+	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/pacman.conf $(@D)/pacman.conf
+	echo "Architecture = $(ARCH)" >>$(@D)/pacman.conf
 	mkdir -p $(@D)/rootfs
 	PATH=$(BR_PATH) \
 	$(HOST_DIR)/bin/fakeroot -- \
 	$(HOST_DIR)/bin/fakechroot -- \
-	pacstrap -G $(@D)/rootfs base
+	pacstrap -G -C $(@D)/pacman.conf $(@D)/rootfs base
 endef
 
 define SKELETON_ARCHLINUX_INSTALL_TARGET_CMDS
