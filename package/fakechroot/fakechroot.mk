@@ -14,6 +14,7 @@ define HOST_FAKECHROOT_INSTALL_CMDS
 	$(INSTALL) -D -m755 $(HOST_FAKECHROOT_PKGDIR)/mount.fakechroot $(HOST_DIR)/bin/mount.fakechroot
 	$(INSTALL) -D -m755 $(HOST_FAKECHROOT_PKGDIR)/umount.fakechroot $(HOST_DIR)/bin/umount.fakechroot
 	$(INSTALL) -D -m644 $(HOST_FAKECHROOT_PKGDIR)/pacstrap.env $(HOST_DIR)/etc/fakechroot/pacstrap.env
+	$(INSTALL) -D -m644 $(HOST_FAKECHROOT_PKGDIR)/arch-chroot.env $(HOST_DIR)/etc/fakechroot/arch-chroot.env
 	$(SED) 's,/usr/local,$(HOST_DIR),' $(HOST_DIR)/etc/fakechroot/pacstrap.env
 endef
 
