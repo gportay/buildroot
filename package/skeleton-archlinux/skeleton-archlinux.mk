@@ -18,6 +18,7 @@ SKELETON_ARCHLINUX_PROVIDES = skeleton
 define SKELETON_ARCHLINUX_BUILD_CMDS
 	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/pacman.conf $(@D)/pacman.conf
 	echo "Architecture = $(ARCH)" >>$(@D)/pacman.conf
+	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/mirrorlist-$(BR2_ARCH) $(@D)/mirrorlist
 	mkdir -p $(@D)/rootfs
 	PATH=$(BR_PATH) \
 	$(HOST_DIR)/bin/fakeroot -- \
