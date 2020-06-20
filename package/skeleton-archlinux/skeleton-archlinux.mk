@@ -23,6 +23,10 @@ define SKELETON_ARCHLINUX_BUILD_CMDS
 	$(HOST_DIR)/bin/fakeroot -- \
 	$(HOST_DIR)/bin/fakechroot -- \
 	pacstrap -G -C $(@D)/pacman.conf $(@D)/rootfs base
+	PATH=$(BR_PATH) \
+	$(HOST_DIR)/bin/fakeroot -- \
+	$(HOST_DIR)/bin/fakechroot -- \
+	arch-chroot bash -c "pacman-key --init && pacman-key --populate archlinux"
 endef
 
 define SKELETON_ARCHLINUX_INSTALL_TARGET_CMDS
