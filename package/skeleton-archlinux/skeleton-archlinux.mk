@@ -15,19 +15,14 @@ SKELETON_ARCHLINUX_DEPENDENCIES = host-arch-install-scripts host-fakeroot host-f
 
 SKELETON_ARCHLINUX_PROVIDES = skeleton
 
+export http_proxy=http://localhost:3142
+
 define SKELETON_ARCHLINUX_BUILD_CMDS
-	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/pacman.conf $(@D)/pacman.conf
-	echo "Architecture = $(ARCH)" >>$(@D)/pacman.conf
-	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/mirrorlist-$(BR2_ARCH) $(@D)/mirrorlist
 	mkdir -p $(@D)/rootfs
-	PATH=$(BR_PATH) \
-	$(HOST_DIR)/bin/fakeroot -- \
-	$(HOST_DIR)/bin/fakechroot -- \
-	pacstrap -G -C $(@D)/pacman.conf $(@D)/rootfs base
-	PATH=$(BR_PATH) \
-	$(HOST_DIR)/bin/fakeroot -- \
-	$(HOST_DIR)/bin/fakechroot -- \
-	arch-chroot bash -c "pacman-key --init && pacman-key --populate archlinux"
+	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/pacman.conf $(@D)/pacman.conf
+	$(INSTALL) -D -m 0644 $(SKELETON_ARCHLINUX_PKGDIR)/mirrorlist-$(ARCH) $(@D)/mirrorlist
+	( cd $(@D) && PATH=$(BR_PATH) fakeroot -- fakechroot -- pacstrap -GMC pacman.conf rootfs base archlinuxarm-keyring )
+	( cd $(@D) && PATH=$(BR_PATH) fakeroot -- fakechroot -- arch-chroot rootfs bash -c "pacman-key --init && pacman-key --populate archlinux" )
 endef
 
 define SKELETON_ARCHLINUX_INSTALL_TARGET_CMDS
