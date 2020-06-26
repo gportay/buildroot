@@ -280,6 +280,8 @@ else
 HOST_QEMU_OPTS += --disable-libusb
 endif
 
+HOST_QEMU_OPTS += --static
+
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define HOST_QEMU_CONFIGURE_CMDS
