@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HOST_PACMAN
+	bool "host pacman"
+	select BR2_PACKAGE_LIBARCHIVE
+	help
+	  A library-based package manager with dependency support.
+
+	  https://www.archlinux.org/pacman/
