@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HOST_PACMAN_MIRRORLIST
+	bool "host pacman-mirrorlist"
+	help
+	  Arch Linux mirror list for use by pacman.
+
+	  x86_64: https://www.archlinux.org/mirrorlist/
+	  aarch64: http://www.archlinuxarm.org/about/mirrors
