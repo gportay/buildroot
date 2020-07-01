@@ -1,0 +1,6 @@
+config BR2_PACKAGE_HOST_ARCHLINUX_KEYRING
+	bool "host archlinux-keyring"
+	help
+	  Arch Linux PGP keyring
+	  
+	  https://git.archlinux.org/archlinux-keyring.git/
