@@ -1,0 +1,12 @@
+config BR2_PACKAGE_HOST_LIBCOMPS
+	bool "host libcomps"
+	SELECT BR2_PACKAGE_HOST_EXPAT
+	SELECT BR2_PACKAGE_HOST_LIBXML2
+	SELECT BR2_PACKAGE_HOST-ZLIB
+	help
+	  Libcomps is library for structure-like manipulation with content
+	  of comps XML files. Supports read/write XML file, structure(s)
+	  modification.
+
+	  https://fedoraproject.org/wiki/DNF
+	  https://github.com/rpm-software-management/libcomps
