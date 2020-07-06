@@ -1,0 +1,6 @@
+CONFIG BR2_PACKAGE_HOST_LIBMODULEMD
+	bool "host libmodulemd"
+	help
+	  C Library for manipulating module metadata files.
+
+	  https://github.com/fedora-modularity/libmodulemd
