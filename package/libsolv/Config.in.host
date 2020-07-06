@@ -1,0 +1,11 @@
+config BR2_PACKAGE_HOST_LIBSOLV
+	bool "host libsolv"
+	select BR2_PACKAGE_HOST-BZIP2
+	select BR2_PACKAGE_HOST_LIBXML2
+ 	select BR2_PACKAGE_HOST_LZMA
+	select BR2_PACKAGE_HOST_ZCHUNK
+ 	select BR2_PACKAGE_HOST_ZSTD
+	help
+	  Library for solving packages.
+
+	  https://github.com/openSUSE/libsolv
