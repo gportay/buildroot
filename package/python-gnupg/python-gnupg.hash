@@ -1,0 +1,5 @@
+# md5, sha256 from https://pypi.org/pypi/python-gnupg/json
+md5  1a25d1aa3a6a8b5c8ac307deab33a7d7  python-gnupg-0.4.6.tar.gz
+sha256  3aa0884b3bd414652c2385b9df39e7b87272c2eca1b8fcc3089bc9e58652019a  python-gnupg-0.4.6.tar.gz
+# Locally computed sha256 checksums
+sha256  1a25d1aa3a6a8b5c8ac307deab33a7d7  LICENSE.txt
