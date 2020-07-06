@@ -17,7 +17,7 @@ PYTHON3_LICENSE_FILES = LICENSE
 HOST_PYTHON3_CONF_OPTS += \
 	--without-ensurepip \
 	--without-cxx-main \
-	--disable-sqlite3 \
+	--enable-sqlite3 \
 	--disable-tk \
 	--with-expat=system \
 	--disable-curses \
@@ -39,7 +39,7 @@ HOST_PYTHON3_CONF_ENV += \
 
 PYTHON3_DEPENDENCIES = host-python3 libffi
 
-HOST_PYTHON3_DEPENDENCIES = host-expat host-zlib host-libffi
+HOST_PYTHON3_DEPENDENCIES = host-expat host-zlib host-libffi host-sqlite
 
 ifeq ($(BR2_PACKAGE_HOST_PYTHON3_SSL),y)
 HOST_PYTHON3_DEPENDENCIES += host-openssl
