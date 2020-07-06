@@ -18,3 +18,4 @@ endef
 CHECK_POST_INSTALL_TARGET_HOOKS += CHECK_REMOVE_CHECKMK
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
