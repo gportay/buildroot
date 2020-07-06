@@ -14,3 +14,4 @@ BASH_COMPLETION_LICENSE_FILES = COPYING
 BASH_COMPLETION_INSTALL_STAGING = YES
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
