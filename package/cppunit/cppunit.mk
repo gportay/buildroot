@@ -10,5 +10,7 @@ CPPUNIT_INSTALL_STAGING = YES
 CPPUNIT_LICENSE = LGPL-2.1
 CPPUNIT_LICENSE_FILES = COPYING
 CPPUNIT_CONF_OPTS = --disable-doxygen
+HOST_CPPUNIT_CONF_OPTS = --disable-doxygen
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
