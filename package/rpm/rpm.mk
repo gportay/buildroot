@@ -108,3 +108,28 @@ RPM_CONF_ENV = \
 	LIBS=$(TARGET_NLS_LIBS)
 
 $(eval $(autotools-package))
+
+HOST_RPM_DEPENDENCIES = host-libnss host-lua host-openssl host-python3 host-zstd
+
+HOST_RPM_CONF_OPTS += \
+	--enable-zstd \
+	--enable-bdb \
+	--disable-ndb \
+	--disable-lmdb \
+	--disable-nls \
+	--enable-python \
+	--disable-plugins \
+	--disable-inhibit-plugin \
+	--with-crypto=openssl \
+	--without-lua \
+	--without-internal-beecrypt \
+	--without-archive \
+	--without-hackingdocs \
+	--without-selinux \
+	--without-imaevm \
+	--with-cap \
+	--without-acl \
+	--with-lua \
+	--without-audit \
+
+$(eval $(host-autotools-package))
