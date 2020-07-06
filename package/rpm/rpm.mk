@@ -121,7 +121,7 @@ HOST_RPM_CONF_OPTS += \
 	--disable-plugins \
 	--disable-inhibit-plugin \
 	--with-crypto=openssl \
-	--without-lua \
+	--with-lua \
 	--without-internal-beecrypt \
 	--without-archive \
 	--without-hackingdocs \
