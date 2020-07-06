@@ -1,0 +1,7 @@
+config BR2_PACKAGE_HOST_LIBDNF
+	bool "host libdnf"
+	help
+	  A Library providing simplified C and Python API to libsolv.
+
+	  https://fedoraproject.org/wiki/DNF
+	  https://github.com/rpm-software-management/libdnf
