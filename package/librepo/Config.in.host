@@ -1,0 +1,12 @@
+config BR2_PACKAGE_HOST_LIBREPO
+	bool "host librepo"
+	select BR2_PACKAGE_HOST_LIBGLIB2
+	select BR2_PACKAGE_HOST_LIBXML2
+	select BR2_PACKAGE_HOST_OPENSSL
+	select BR2_PACKAGE_HOST_ZCHUNK
+	help
+	  A library providing C and Python (libcURL like) API to downloading
+	  repository metadata. 
+
+	  https://fedoraproject.org/wiki/DNF
+	  https://github.com/rpm-software-management/librepo
