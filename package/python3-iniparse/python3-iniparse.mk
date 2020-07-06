@@ -14,3 +14,4 @@ PYTHON3_INIPARSE_SETUP_TYPE = setuptools
 HOST_PYTHON3_INIPARSE_NEEDS_HOST_PYTHON = python3
 
 $(eval $(python-package))
+$(eval $(host-python-package))
