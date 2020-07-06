@@ -29,4 +29,15 @@ PYTHON_GOBJECT_CONF_ENV += \
 	_PYTHON_SYSCONFIGDATA_NAME=$(PKG_PYTHON_SYSCONFIGDATA_NAME) \
 	PYTHONPATH=$(PYTHON3_PATH)
 
+HOST_PYTHON_GOBJECT_DEPENDENCIES = \
+	host-gobject-introspection \
+	host-pkgconf \
+	host-libglib2 \
+	host-python3
+
+HOST_PYTHON_GOBJECT_CONF_OPTS += \
+	-Dpycairo=false \
+	-Dtests=false
+
 $(eval $(meson-package))
+$(eval $(host-meson-package))
