@@ -1,0 +1,8 @@
+config BR2_PACKAGE_HOST_ZCHUNK
+	bool "host zchunk"
+	select BR2_PACKAGE_HOST_LIBCURL
+	help
+	  A file format that allows easy deltas while maintaining
+	  good compression.
+
+	  https://github.com/zchunk/zchunk
