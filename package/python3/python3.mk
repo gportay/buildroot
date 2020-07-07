@@ -20,7 +20,7 @@ HOST_PYTHON3_CONF_OPTS += \
 	--enable-sqlite3 \
 	--disable-tk \
 	--with-expat=system \
-	--disable-curses \
+	--enable-curses \
 	--disable-codecs-cjk \
 	--disable-nis \
 	--enable-unicodedata \
@@ -39,7 +39,7 @@ HOST_PYTHON3_CONF_ENV += \
 
 PYTHON3_DEPENDENCIES = host-python3 libffi
 
-HOST_PYTHON3_DEPENDENCIES = host-expat host-zlib host-libffi host-sqlite
+HOST_PYTHON3_DEPENDENCIES = host-expat host-zlib host-libffi host-sqlite host-ncurses
 
 ifeq ($(BR2_PACKAGE_HOST_PYTHON3_SSL),y)
 HOST_PYTHON3_DEPENDENCIES += host-openssl
