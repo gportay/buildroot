@@ -21,6 +21,12 @@ config BR2_USERLAND_ARCHLINUX
 	help
 	  Use Arch Linux userland.
 
+config BR2_USERLAND_FEDORA
+	bool "Fedora"
+	select BR2_PACKAGE_SKELETON_FEDORA
+	help
+	  Use Fedora userland.
+
 endchoice
 
 if BR2_PACKAGE_SKELETON_DEBIAN
@@ -85,6 +91,57 @@ config BR2_PACKAGE_SKELETON_ARCHLINUX_PACKAGES
 
 endif
 
+if BR2_PACKAGE_SKELETON_FEDORA
+
+config BR2_PACKAGE_SKELETON_FEDORA_GROUP
+	string "group"
+	default "Minimal Install"
+	help
+	  Install group.
+
+	  Available Environment Groups:
+
+	  Fedora Custom Operating System, Minimal Install,
+	  Fedora Server Edition, Fedora Workstation,
+	  Fedora Cloud Server, KDE Plasma Workspaces,
+	  Xfce Desktop, LXDE Desktop, LXQt Desktop,
+	  Cinnamon Desktop, MATE Desktop,
+	  Sugar Desktop Environment, Deepin Desktop,
+	  Development and Creative Workstation, Web Server,
+	  Infrastructure Server, Basic Desktop.
+
+	  Available Groups:
+
+	  3D Printing, Administration Tools, Audio Production,
+	  Authoring and Publishing, Books and Guides,
+	  C Development Tools and Libraries, Cloud Infrastructure,
+	  Cloud Management Tools, Compiz, Container Management,
+	  D Development Tools and Libraries, Design Suite,
+	  Development Tools, Domain Membership, Fedora Eclipse,
+	  Editors, Educational Software, Electronic Lab,
+	  Engineering and Scientific, FreeIPA Server,
+	  Games and Entertainment, Headless Management,
+	  LibreOffice, MATE Applications, Medical Applications,
+	  Milkymist, Network Servers, Neuron Modelling Simulators,
+	  Office/Productivity, Python Classroom, Python Science,
+	  Robotics, RPM Development Tools, Security Lab,
+	  Sound and Video, System Tools, Text-based Internet,
+	  Window Managers.
+
+config BR2_PACKAGE_SKELETON_FEDORA_RELEASE_VERSION
+	string "release version"
+	default "32"
+	help
+	  Release version.
+
+config BR2_PACKAGE_SKELETON_FEDORA_DNF_ARGS
+	string "Extra arguments passed to dnf"
+	default ""
+	help
+	  Pass these additional arguments to dnf.
+
+endif
+
 # Note: usually, it is not possible to select a provider of a virtual
 # package. But here we have an exception: there are only four providers
 # and they only get selected by separate entries in this choice and
@@ -101,6 +158,7 @@ config BR2_ROOTFS_SKELETON_DEFAULT
 	select BR2_PACKAGE_SKELETON_INIT_NONE if BR2_INIT_NONE
 	select BR2_PACKAGE_SKELETON_ARCHLINUX if BR2_USERLAND_ARCHLINUX
 	select BR2_PACKAGE_SKELETON_DEBIAN if BR2_USERLAND_DEBIAN
+	select BR2_PACKAGE_SKELETON_FEDORA if BR2_USERLAND_FEDORA
 	help
 	  Use default target skeleton
 
