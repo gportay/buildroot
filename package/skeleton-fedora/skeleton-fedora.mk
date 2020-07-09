@@ -19,12 +19,11 @@ SKELETON_FEDORA_DEPENDENCIES += host-dnf host-libcomps host-libdnf host-librepo
 SKELETON_FEDORA_GROUP = $(call qstrip,$(BR2_PACKAGE_SKELETON_FEDORA_GROUP))
 SKELETON_FEDORA_RELEASE_VERSION = $(call qstrip,$(BR2_PACKAGE_SKELETON_FEDORA_RELEASE_VERSION))
 SKELETON_FEDORA_DNF_OPTS = $(call qstrip,$(BR2_PACKAGE_SKELETON_FEDORA_DNF_ARGS))
-
-ifeq ($(BR2_aarch64),y)
-SKELETON_FEDORA_KEYRINGS += fedoraarm
-endif
+SKELETON_FEDORA_DNF_OPTS += --releasever=$(SKELETON_FEDORA_RELEASE_VERSION)
 
 ifneq ($(ARCH),$(HOSTARCH))
+SKELETON_FEDORA_DNF_OPTS += --forcearch=$(ARCH)
+
 ifeq ($(BR2_x86_64),y)
 SKELETON_FEDORA_QEMU_STATIC = qemu-x64_64-static
 endif
@@ -48,7 +47,7 @@ endif
 
 define SKELETON_FEDORA_BUILD_CMDS
 	$(INSTALL) -D -m 0644 $(SKELETON_FEDORA_PKGDIR)/fedora.repo $(@D)/rootfs/etc/yum/repos.d/fedora.repo
-	( cd $(@D) && PATH=$(BR_PATH) QEMU_LD_PREFIX=$(@D)/rootfs fakeroot -- fakechroot -- dnf-3 --assumeyes --installroot=$(@D)/rootfs --forcearch=$(ARCH) --releasever=$(SKELETON_FEDORA_RELEASE_VERSION) $(SKELETON_FEDORA_DNF_OPTS) group install "$(SKELETON_FEDORA_GROUP)" )
+	( cd $(@D) && PATH=$(BR_PATH) QEMU_LD_PREFIX=$(@D)/rootfs FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys fakeroot -- fakechroot -- dnf-3 --assumeyes $(SKELETON_FEDORA_DNF_OPTS) --installroot=$(@D)/rootfs group install "$(SKELETON_FEDORA_GROUP)" )
 endef
 
 define SKELETON_FEDORA_INSTALL_TARGET_CMDS
