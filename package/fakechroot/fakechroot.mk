@@ -15,7 +15,7 @@ define HOST_FAKECHROOT_INSTALL_CMDS
 	$(INSTALL) -D -m644 $(HOST_FAKECHROOT_PKGDIR)/arch-chroot.env $(HOST_DIR)/etc/fakechroot/arch-chroot.env
 	$(SED) 's,/usr/local,$(HOST_DIR),' $(HOST_DIR)/etc/fakechroot/pacstrap.env
 	$(INSTALL) -D -m644 $(HOST_FAKECHROOT_PKGDIR)/dnf.env $(HOST_DIR)/etc/fakechroot/dnf.env
-	$(LN) -sf dnf.env $(HOST_DIR)/etc/fakechroot/dnf-3.env
+	ln -sf dnf.env $(HOST_DIR)/etc/fakechroot/dnf-3.env
 endef
 
 $(eval $(host-autotools-package))
