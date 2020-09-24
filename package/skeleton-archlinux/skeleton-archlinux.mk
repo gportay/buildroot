@@ -11,11 +11,13 @@
 SKELETON_ARCHLINUX_ADD_TOOLCHAIN_DEPENDENCY = NO
 SKELETON_ARCHLINUX_ADD_SKELETON_DEPENDENCY = NO
 
-SKELETON_ARCHLINUX_DEPENDENCIES = host-fakeroot host-fakechroot skeleton-init-common
+SKELETON_ARCHLINUX_DEPENDENCIES = host-arch-install-scripts host-archlinux-keyring host-fakechroot host-fakeroot \
+				  host-pacman host-pacman-mirrorlist skeleton-init-common 
 
 SKELETON_ARCHLINUX_PROVIDES = skeleton
 
-SKELETON_ARCHLINUX_DEPENDENCIES += host-pacman host-pacman-mirrorlist host-archlinux-keyring host-arch-install-scripts
+SKELETON_ARCHLINUX_BIN_ARCH_EXCLUDE = /usr/lib/guile/2.2/site-ccache
+
 SKELETON_ARCHLINUX_KEYRINGS = archlinux
 SKELETON_ARCHLINUX_PACKAGES = $(call qstrip,$(BR2_PACKAGE_SKELETON_ARCHLINUX_PACKAGES))
 
