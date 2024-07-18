@@ -24,3 +24,6 @@ gpu_mem_1024=200
 
 # Enable UART0 for serial console on ttyAMA0
 dtoverlay=miniuart-bt
+
+# Enable DRM VC4 V3D driver
+dtoverlay=vc4-kms-v3d
