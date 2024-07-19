@@ -34,6 +34,7 @@ menuconfig BR2_PACKAGE_QT5
 	  http://qt.io
 
 if BR2_PACKAGE_QT5
+
 source "package/qt5/qt53d/Config.in"
 source "package/qt5/qt5base/Config.in"
 source "package/qt5/qt5charts/Config.in"
@@ -73,4 +74,5 @@ source "package/qt5/qt5websockets/Config.in"
 source "package/qt5/qt5webview/Config.in"
 source "package/qt5/qt5x11extras/Config.in"
 source "package/qt5/qt5xmlpatterns/Config.in"
+
 endif
