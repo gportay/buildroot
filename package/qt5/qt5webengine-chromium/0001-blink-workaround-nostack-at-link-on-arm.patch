@@ -1,0 +1,43 @@
+From df0bab1070a931ed72c22c40323a9822f537a8fd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ga=C3=ABl=20PORTAY?= <gael.portay@rtone.fr>
+Date: Fri, 19 Jul 2024 13:37:03 +0200
+Subject: [PATCH] blink: workaround nostack at link on arm
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This works arround the link issue below on arm.
+
+Note: The file was removed upstream[1].
+
+Fixes:
+
+	ulimit -n 4096 && /home/gportay/src/buildroot/output/host/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot @/home/gportay/src/buildroot/output/build/qt5webengine-5.15.14/src/core/release/QtWebEngineCore_o.rsp -Wl,--start-group @/home/gportay/src/buildroot/output/build/qt5webengine-5.15.14/src/core/release/QtWebEngineCore_a.rsp -Wl,--end-group -Wl,--fatal-warnings -Wl,--build-id=sha1 -fPIC -Wl,-z,relro -Wl,-z,now -Wl,-z,defs -Wl,-O2 -Wl,--gc-sections --sysroot=/home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot --sysroot=/home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot -Wl,-O1 -Wl,--enable-new-dtags -Wl,-whole-archive -lqtwebenginecoreapi -Wl,-no-whole-archive -Wl,--no-undefined -Wl,--version-script,QtWebEngineCore.version -Wl,-O1 -Wl,--enable-new-dtags -shared -Wl,-soname,libQt5WebEngineCore.so.5 -o libQt5WebEngineCore.so.5.15.14   -latomic /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5Quick.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5Gui.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5QmlModels.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5WebChannel.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5Qml.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5Network.so /home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/libQt5Core.so -lpthread -L/home/gportay/src/buildroot/output/host/arm-buildroot-linux-gnueabihf/sysroot/usr/lib -latomic -lGLESv2 -lpthread -ldl -lrt -lnss3 -lnssutil3 -lsmime3 -lplds4 -lplc4 -lnspr4 -levent -lresolv -ljpeg -lopus -lm -lz -lvpx -lpng16 -lwebp -lwebpmux -lwebpdemux -lfreetype -lexpat -lfontconfig -lharfbuzz-subset -lharfbuzz -lsnappy -lxml2 -lxslt -ldbus-1 -L/home/gportay/src/buildroot/output/build/qt5webengine-5.15.14/src/core/api/release -lGLESv2 -lrt -lpthread -ldl
+	/home/gportay/src/buildroot/output/host/lib/gcc/arm-buildroot-linux-gnueabihf/13.3.0/../../../../arm-buildroot-linux-gnueabihf/bin/ld: warning: /home/gportay/src/buildroot/output/build/qt5webengine-5.15.14/src/core/release/obj/third_party/blink/renderer/platform/heap/asm/asm/SaveRegisters_arm.o: missing .note.GNU-stack section implies executable stack
+	/home/gportay/src/buildroot/output/host/lib/gcc/arm-buildroot-linux-gnueabihf/13.3.0/../../../../arm-buildroot-linux-gnueabihf/bin/ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+	collect2: error: ld returned 1 exit status
+
+[1]: https://chromium.googlesource.com/chromium/src/+/0e8ab8bb7a15ed083664e44ac6fc30df970c4932
+[2]: https://wiki.gentoo.org/wiki/Hardened/GNU_stack_quickstart
+
+Upstream-Status: inapropriate [file removed]
+Signed-off-by: Gaël PORTAY <gael.portay@rtone.fr>
+---
+ .../blink/renderer/platform/heap/asm/SaveRegisters_arm.S      | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/chromium/third_party/blink/renderer/platform/heap/asm/SaveRegisters_arm.S b/chromium/third_party/blink/renderer/platform/heap/asm/SaveRegisters_arm.S
+index a86922808bc..48a29c8ac74 100644
+--- a/chromium/third_party/blink/renderer/platform/heap/asm/SaveRegisters_arm.S
++++ b/chromium/third_party/blink/renderer/platform/heap/asm/SaveRegisters_arm.S
+@@ -75,3 +75,7 @@ PushAllRegisters:
+          */
+         add sp, sp, #32
+         pop {pc}
++
++#if defined(__linux__) && defined(__ELF__)
++.section .note.GNU-stack,"",%progbits                                           
++#endif
+-- 
+2.45.2
+
