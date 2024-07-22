@@ -230,6 +230,27 @@ ifeq ($(BR2_arc),y)
 QT5BASE_CFLAGS += -mno-millicode -mlong-calls
 endif
 
+ifeq ($(BR2_arm),y)
+ifeq ($(BR2_ARM_CPU_ARMV6),y)
+QT5BASE_CFLAGS += -march=armv6t2
+QT5BASE_CXXFLAGS += -mtune=armv6t2
+endif
+ifeq ($(BR2_ARM_CPU_ARMV7A),y)
+QT5BASE_CFLAGS += -march=armv7-a
+QT5BASE_CXXFLAGS += -mtune=generic-armv7-a
+endif
+ifeq ($(BR2_ARM_CPU_ARMV8A),y)
+QT5BASE_CFLAGS += -march=armv7
+QT5BASE_CXXFLAGS += -mtune=generic-armv7-a
+endif
+QT5BASE_CFLAGS += -mtune=$(GCC_TARGET_CPU)
+QT5BASE_CXXFLAGS += -mtune=$(GCC_TARGET_CPU)
+ifeq ($(BR2_ARM_CPU_HAS_FPU),y)
+QT5BASE_CFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
+QT5BASE_CXXFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
+endif
+endif
+
 ifeq ($(BR2_PACKAGE_QT5BASE_EGLFS),y)
 QT5BASE_CONFIGURE_OPTS += -eglfs
 QT5BASE_DEPENDENCIES   += libegl
