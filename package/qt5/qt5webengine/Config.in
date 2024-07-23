@@ -105,4 +105,8 @@ config BR2_PACKAGE_QT5WEBENGINE_ALSA
 	help
 	  Enable ALSA support.
 
+config BR2_PACKAGE_QT5WEBENGINE_NINJAFLAGS
+	string "Ninja Flags"
+	default "-j$(PARALLEL_JOBS)"
+
 endif
