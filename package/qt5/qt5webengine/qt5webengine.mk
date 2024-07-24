@@ -141,6 +141,10 @@ else
 QT5WEBENGINE_CONF_OPTS += -no-webengine-pulseaudio
 endif
 
+ifeq ($(BR2_ARM_CPU_HAS_THUMB2),y)
+QT5WEBENGINE_CONF_OPTS += -feature-webengine-arm-thumb
+endif
+
 QT5WEBENGINE_ENV = \
 	PATH=$(@D)/host-bin:$(BR_PATH) \
 	PKG_CONFIG_SYSROOT_DIR="/"
