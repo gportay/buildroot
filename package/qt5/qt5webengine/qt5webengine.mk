@@ -71,7 +71,6 @@ QT5WEBENGINE_DEPENDENCIES += \
 	host-webp \
 	host-zlib \
 	freetype \
-	jpeg \
 	lcms2 \
 	libevent \
 	libnss \
@@ -94,7 +93,6 @@ QT5WEBENGINE_CONF_OPTS += \
 	-feature-webengine-system-glib \
 	-feature-webengine-system-glibc \
 	-feature-webengine-system-harfbuzz \
-	-feature-webengine-system-jpeg \
 	-feature-webengine-system-khr \
 	-feature-webengine-system-lcms2 \
 	-feature-webengine-system-libevent \
@@ -120,6 +118,11 @@ QT5WEBENGINE_CONF_OPTS += \
 	-no-feature-webengine-noexecstack \
 	-no-feature-webengine-system-minizip \
 	-no-feature-webengine-system-gn
+
+ifeq ($(BR2_PACKAGE_JPEG_TURBO),y)
+QT5WEBENGINE_DEPENDENCIES += jpeg
+QT5WEBENGINE_CONF_OPTS += -feature-webengine-system-jpeg
+endif
 
 ifeq ($(BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS),y)
 QT5WEBENGINE_CONF_OPTS += -webengine-proprietary-codecs
