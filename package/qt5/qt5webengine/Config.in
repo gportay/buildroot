@@ -88,7 +88,17 @@ config BR2_PACKAGE_QT5WEBENGINE
 
 if BR2_PACKAGE_QT5WEBENGINE
 
+config BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS_ARCH_SUPPORTS
+	bool
+	default y if BR2_aarch64 || (BR2_arm && BR2_ARM_CPU_HAS_THUMB2) || \
+		BR2_i386 || BR2_x86_64 || \
+		BR2_mips || BR2_mips64
+
+comment "qt5webengine-proprietary-codecs for ARM needs Thumb2 instruction set"
+	depends on !BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS_ARCH_SUPPORTS
+
 config BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS
+	depends on BR2_PACKAGE_QT5WEBENGINE_PROPRIETARY_CODECS_ARCH_SUPPORTS
 	bool "proprietary codecs"
 	help
 	  Qt WebEngine supports the MPEG-4 Part 14 (MP4) file format,
