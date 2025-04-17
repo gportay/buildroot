@@ -230,24 +230,31 @@ ifeq ($(BR2_arc),y)
 QT5BASE_CFLAGS += -mno-millicode -mlong-calls
 endif
 
+QT5BASE_BR_COMPILER_CFLAGS = $(QT5BASE_CFLAGS)
+QT5BASE_BR_COMPILER_CXXFLAGS = $(QT5BASE_CXXFLAGS)
+
 ifeq ($(BR2_arm),y)
 ifeq ($(BR2_ARM_CPU_ARMV6),y)
-QT5BASE_CFLAGS += -march=armv6t2
-QT5BASE_CXXFLAGS += -mtune=armv6t2
+QT5BASE_BR_COMPILER_CFLAGS += -march=armv6t2
+QT5BASE_BR_COMPILER_CXXFLAGS += -mtune=armv6t2
 endif
 ifeq ($(BR2_ARM_CPU_ARMV7A),y)
-QT5BASE_CFLAGS += -march=armv7-a
-QT5BASE_CXXFLAGS += -mtune=generic-armv7-a
+QT5BASE_BR_COMPILER_CFLAGS += -march=armv7-a
+QT5BASE_BR_COMPILER_CXXFLAGS += -mtune=generic-armv7-a
 endif
 ifeq ($(BR2_ARM_CPU_ARMV8A),y)
-QT5BASE_CFLAGS += -march=armv7
-QT5BASE_CXXFLAGS += -mtune=generic-armv7-a
+QT5BASE_BR_COMPILER_CFLAGS += -march=armv7-a
+QT5BASE_BR_COMPILER_CXXFLAGS += -mtune=generic-armv7-a
 endif
-QT5BASE_CFLAGS += -mtune=$(GCC_TARGET_CPU)
-QT5BASE_CXXFLAGS += -mtune=$(GCC_TARGET_CPU)
+QT5BASE_BR_COMPILER_CFLAGS += -mtune=$(GCC_TARGET_CPU)
+QT5BASE_BR_COMPILER_CXXFLAGS += -mtune=$(GCC_TARGET_CPU)
 ifeq ($(BR2_ARM_CPU_HAS_FPU),y)
-QT5BASE_CFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
-QT5BASE_CXXFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
+QT5BASE_BR_COMPILER_CFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
+QT5BASE_BR_COMPILER_CXXFLAGS += -mfloat-abi=$(GCC_TARGET_FLOAT_ABI) -mfpu=$(GCC_TARGET_FPU)
+endif
+ifeq ($(BR2_ARM_CPU_HAS_THUMB2),y)
+QT5BASE_BR_COMPILER_CFLAGS += -mthumb
+QT5BASE_BR_COMPILER_CXXFLAGS += -mthumb
 endif
 endif
 
@@ -388,8 +395,8 @@ define QT5BASE_CONFIGURE_CMDS
 		-nomake tests \
 		-device buildroot \
 		-device-option CROSS_COMPILE="$(TARGET_CROSS)" \
-		-device-option BR_COMPILER_CFLAGS="$(QT5BASE_CFLAGS)" \
-		-device-option BR_COMPILER_CXXFLAGS="$(QT5BASE_CXXFLAGS)" \
+		-device-option BR_COMPILER_CFLAGS="$(QT5BASE_BR_COMPILER_CFLAGS)" \
+		-device-option BR_COMPILER_CXXFLAGS="$(QT5BASE_BR_COMPILER_CXXFLAGS)" \
 		$(QT5BASE_CONFIGURE_OPTS) \
 	)
 endef
